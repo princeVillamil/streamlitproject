@@ -1,1 +1,1 @@
-# streamlit-dashboard-template
+# Sreamlit Dashboard Template

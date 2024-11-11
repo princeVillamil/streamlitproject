@@ -63,7 +63,10 @@ with st.sidebar:
 # Data
 
 # Load data
-dataset = pd.read_csv("data/IRIS.csv")
+dataset = pd.read_csv("data/ds_salaries.csv")
+df = dataset.copy()
+df.dropna(axis=1, how='any')
+df.info()
 
 #######################
 
@@ -92,8 +95,22 @@ if st.session_state.page_selection == "about":
 elif st.session_state.page_selection == "dataset":
     st.header("📊 Dataset")
 
-    st.write("IRIS Flower Dataset")
-    st.write("")
+    # st.write("Data Science Job Salaries Statistics Dataset Overview")
+    
+    st.markdown("""
+        ### Data Science Job Salaries Statistics Dataset Overview
+                
+        **Link to dataset**: [Data Science Job Salaries Data Set on Kaggle](https://www.kaggle.com/datasets/ruchi798/data-science-job-salaries)
+                
+        The dataset is about Data Science Job Salaries, it highlights different areas that will contribute to a Data Scientist's salaries, such as number of work years, experience level, and types of employment. This data set seems like it is set from 2020-current date, which should give us the current landscape of data science jobs, which is really valuable in being able to predict outcomes such as future salaries and the future job market. For our group project, we want to predict the possible average data scientist salaries along with experience level for said salaries, and if possible we would like to see if it can give insight into the future job market. We believe this is the best data set to use for this because the job market for tech has been in an influx thus having a data set that focuses on years where this has occurred will give better results in our productions. This data will be very interesting to see because as we aspire to join the job market for data science/tech jobs, we can have a better grasp for what we will be confrutned with once we graduate. Lastly, models to use on the dataset, since we want to predict using historical data, we want to use models focused on years of experience x year x year salary. Based on what we have searched, time series models are what we want so for things like the exploratory data analysis models, we also want to experiment with using a regression analysis model to see which factors contribute the most when predicting salaries based on work_year, experience_level, job_title, and etc.
+
+        ### Proposed Models
+            Given the multivariate nature of this prediction, we will employ a linear regression model which would be used to test which features would impact data science job salary the most in our machine learning predictions.
+
+        ### Dataset Preview
+                """)
+    st.dataframe(df, use_container_width=True, hide_index=True)
+
 
     # Your content for your DATASET page goes here
 

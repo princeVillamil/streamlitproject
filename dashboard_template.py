@@ -66,7 +66,7 @@ with st.sidebar:
 dataset = pd.read_csv("data/ds_salaries.csv")
 df = dataset.copy()
 df.dropna(axis=1, how='any')
-df.info()
+dfnew = df.drop(columns=['Unnamed: 0'])
 
 #######################
 
@@ -109,7 +109,7 @@ elif st.session_state.page_selection == "dataset":
 
         ### Dataset Preview
                 """)
-    st.dataframe(df, use_container_width=True, hide_index=True)
+    st.dataframe(dfnew, use_container_width=True, hide_index=True)
 
 
     # Your content for your DATASET page goes here

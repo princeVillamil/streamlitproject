@@ -57,7 +57,7 @@ with st.sidebar:
 
     # Project Members
     st.subheader("Members")
-    st.markdown("1. Elon Musk\n2. Jeff Bezos\n3. Sam Altman\n4. Mark Zuckerberg")
+    st.markdown("1. Prince Jeffrey Villamil\n2. Name\n3. Name\n4. Name\n5. Name")
 
 #######################
 # Data
@@ -72,6 +72,19 @@ dataset = pd.read_csv("data/IRIS.csv")
 # About Page
 if st.session_state.page_selection == "about":
     st.header("ℹ️ About")
+    st.markdown(""" 
+
+    In this group project, we want to predict the possible average data scientist salaries along with experience level for said salaries, and if possible we would like to see if it can give insight into the future job market. We believe this is the best data set to use for this because the job market for tech has been in an influx thus having a data set that focuses on years where this has occurred will give better results in our productions.
+
+    #### Pages
+
+    1. `Dataset` - Overview of a data science job salary database, including work year , experience level, employment type, company locations, and additional influencing.
+    2. `EDA` - Exploratory analysis on salary distributions and demographic patterns within the data science industry, with visualizations highlighting correlations between experience, location, and job type.
+    3. `Data Cleaning / Pre-processing` - Cleaning and transforming the salary data to ensure accuracy in modeling, handling missing or inconsistent values, and selecting relevant columns for analysis.
+    4. `Machine Learning` - Implementing Regression Analysis to predict salary based on factors such as job title, experience, and location, as well as other relevant variables.
+    5. `Prediction` - Prediction feature to estimate potential data science job salaries, providing insights based on past data and critical salary-influencing factors.
+    6. `Conclusion` - Summarized findings on data science job salary trends, key factors influencing salaries, and model effectiveness in forecasting salary predictions.
+                """)
 
     # Your content for the ABOUT page goes here
 

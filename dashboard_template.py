@@ -70,13 +70,6 @@ df = dataset.copy()
 df.dropna(axis=1, how='any')
 dfnew = df.drop(columns=['Unnamed: 0'])
 dfnewCopy = dfnew.copy()
-remote_ratio_counts = dfnewCopy['remote_ratio'].value_counts()
-custom_labels = {
-    0: "Less than 20%",
-    50: "Partially Remote (50%)",
-    100: "Fully Remote (More than 80%)"
-}
-labels = [custom_labels[val] for val in remote_ratio_counts.index]
 
 #######################
 
@@ -135,10 +128,27 @@ elif st.session_state.page_selection == "eda":
     st.dataframe(dfnew, use_container_width=True, hide_index=True)
     st.dataframe(dfnew.describe(), use_container_width=True)
 
+    remote_ratio_counts = dfnewCopy['remote_ratio'].value_counts()
+    custom_labels = {
+        0: "Less than 20%",
+        50: "Partially Remote (50%)",
+        100: "Fully Remote (More than 80%)"
+    }
 
-    st.pie(remote_ratio_counts, labels=labels, autopct='%1.1f%%', startangle=140)
-    st.title('Distribution of Remote Work Ratio')
-    st.show()
+    # Map the custom labels to the value counts
+    labels = [custom_labels[val] for val in remote_ratio_counts.index]
+
+    # Create a DataFrame for Plotly
+    pie_data = pd.DataFrame({
+        'Labels': labels,
+        'Counts': remote_ratio_counts.values
+    })
+
+    # Create a pie chart using Plotly
+    fig = px.pie(pie_data, names='Labels', values='Counts', title='Distribution of Remote Work Ratio')
+
+    # Display the chart in Streamlit
+    st.plotly_chart(fig)
 
     avg_salary_by_size = dfnewCopy.groupby('company_size')['salary_in_usd'].mean()
     avg_salary_by_size.plot(kind='bar', color='skyblue')

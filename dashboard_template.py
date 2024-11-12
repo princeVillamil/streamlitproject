@@ -4,7 +4,7 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 import plotly.express as px
-from sklearn.preprocessing import LabelEncoder, StandardScaler
+# from sklearn.preprocessing import LabelEncoder, StandardScaler
 
 
 #######################
@@ -69,7 +69,6 @@ dataset = pd.read_csv("data/ds_salaries.csv")
 df = dataset.copy()
 df.dropna(axis=1, how='any')
 dfnew = df.drop(columns=['Unnamed: 0'])
-encoder = LabelEncoder()
 dfnewCopy = dfnew.copy()
 
 #######################

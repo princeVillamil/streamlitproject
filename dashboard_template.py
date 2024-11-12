@@ -169,6 +169,33 @@ elif st.session_state.page_selection == "eda":
 # Data Cleaning Page
 elif st.session_state.page_selection == "data_cleaning":
     st.header("🧼 Data Cleaning and Data Pre-processing")
+    st.dataframe(dataset.head(), use_container_width=True, hide_index=True)
+    st.markdown("Currently, this dataset includes columns that are not relevant to this project. To address this, we have refine the dataset by selecting only the necessary columns and creating a new dataset containing just the required data, which can be seen in the next table.")
+    #Deletes 'Unnamed: 0' Column from original df
+    dfnew = df.drop(columns=['Unnamed: 0'])
+    # Columns with String values
+    cat_col = [col for col in dfnew.columns if dfnew[col].dtype == 'object']
+    # print('Categorical columns :',cat_col)
+    # Columns with Int values
+    num_col = [col for col in dfnew.columns if dfnew[col].dtype != 'object']
+    # print('Numerical columns :',num_col)
+    st.dataframe(dfnew.head(), use_container_width=True, hide_index=True)
+    st.code("fnew = df.drop(columns=['Unnamed: 0'])")
+    st.markdown("This line of code will drop/remove unwanted columns.")
+    st.code("cat_col = [col for col in dfnew.columns if dfnew[col].dtype == 'object']")
+    st.code("[col for col in dfnew.columns if dfnew[col].dtype != 'object']")
+    st.markdown("This will process the dataset and organize the data into two categories: one for columns with string values and the other for columns with integer values.")
+
+    col = st.columns((1, 1), gap='medium') 
+    with col[0]:
+        st.markdown("Columns with String values")
+        st.dataframe(cat_col, use_container_width=True, hide_index=True)
+
+    with col[1]:
+        st.markdown("Columns with Int values")
+        st.dataframe(cat_col, use_container_width=True, hide_index=True)
+
+
 
     # Your content for the DATA CLEANING / PREPROCESSING page goes here
 

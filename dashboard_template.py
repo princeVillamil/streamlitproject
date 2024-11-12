@@ -143,18 +143,18 @@ elif st.session_state.page_selection == "eda":
     fig = px.pie(pie_data, names='Labels', values='Counts', title='Distribution of Remote Work Ratio')
     st.plotly_chart(fig)
 
-# Assuming dfnewCopy is already defined
-avg_salary_by_size = dfnewCopy.groupby('company_size')['salary_in_usd'].mean()
+    # Assuming dfnewCopy is already defined
+    avg_salary_by_size = dfnewCopy.groupby('company_size')['salary_in_usd'].mean()
 
-# Create a DataFrame for better visualization in Streamlit
-avg_salary_df = pd.DataFrame({
-    'Company Size': avg_salary_by_size.index,
-    'Average Salary in USD': avg_salary_by_size.values
-})
+    # Create a DataFrame for better visualization in Streamlit
+    avg_salary_df = pd.DataFrame({
+        'Company Size': avg_salary_by_size.index,
+        'Average Salary in USD': avg_salary_by_size.values
+    })
 
-# Display the bar chart in Streamlit
-st.title("Average Salary by Company Size")
-st.bar_chart(avg_salary_df.set_index('Company Size'))
+    # Display the bar chart in Streamlit
+    st.title("Average Salary by Company Size")
+    st.bar_chart(avg_salary_df.set_index('Company Size'))
 
 
     # col = st.columns((1.5, 4.5, 2), gap='medium')

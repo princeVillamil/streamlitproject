@@ -4,15 +4,6 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 import plotly.express as px
-
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error, r2_score
-from statsmodels.tsa.arima.model import ARIMA
 # from sklearn.preprocessing import LabelEncoder, StandardScaler
 
 
@@ -79,7 +70,6 @@ df = dataset.copy()
 df.dropna(axis=1, how='any')
 dfnew = df.drop(columns=['Unnamed: 0'])
 dfnewCopy = dfnew.copy()
-
 remote_ratio_counts = dfnewCopy['remote_ratio'].value_counts()
 custom_labels = {
     0: "Less than 20%",
@@ -134,7 +124,7 @@ elif st.session_state.page_selection == "dataset":
     st.markdown("""
     ### Descriptive Statistics
     """)
-    st.dataframe(dfnew.describe(), use_container_width=True, hide_index=True)
+    st.dataframe(dfnew.describe(), use_container_width=True)
 
 
     # Your content for your DATASET page goes here
@@ -143,7 +133,7 @@ elif st.session_state.page_selection == "dataset":
 elif st.session_state.page_selection == "eda":
     st.header("📈 Exploratory Data Analysis (EDA)")
     st.dataframe(dfnew, use_container_width=True, hide_index=True)
-    st.dataframe(dfnew.describe(), use_container_width=True, hide_index=True)
+    st.dataframe(dfnew.describe(), use_container_width=True)
 
 
     st.pie(remote_ratio_counts, labels=labels, autopct='%1.1f%%', startangle=140)

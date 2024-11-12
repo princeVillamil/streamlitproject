@@ -126,7 +126,7 @@ elif st.session_state.page_selection == "dataset":
     st.markdown("""
     ### Descriptive Statistics
     """)
-    st.dataframe(dfnew.describe(), use_container_width=True)
+    st.dataframe(dfnew.describe(), use_container_width=True, hide_index=True)
 
 
     # Your content for your DATASET page goes here
@@ -135,18 +135,18 @@ elif st.session_state.page_selection == "dataset":
 elif st.session_state.page_selection == "eda":
     st.header("📈 Exploratory Data Analysis (EDA)")
     st.dataframe(dfnew, use_container_width=True, hide_index=True)
-    st.dataframe(dfnew.describe(), use_container_width=True)
+    st.dataframe(dfnew.describe(), use_container_width=True, hide_index=True)
 
-    remote_ratio_counts = dfnewCopy['remote_ratio'].value_counts()
-    custom_labels = {
-        0: "Less than 20%",
-        50: "Partially Remote (50%)",
-        100: "Fully Remote (More than 80%)"
-    }
-    labels = [custom_labels[val] for val in remote_ratio_counts.index]
-    st.pie(remote_ratio_counts, labels=labels, autopct='%1.1f%%', startangle=140)
-    st.title('Distribution of Remote Work Ratio')
-    st.show()
+    # remote_ratio_counts = dfnewCopy['remote_ratio'].value_counts()
+    # custom_labels = {
+    #     0: "Less than 20%",
+    #     50: "Partially Remote (50%)",
+    #     100: "Fully Remote (More than 80%)"
+    # }
+    # labels = [custom_labels[val] for val in remote_ratio_counts.index]
+    # st.pie(remote_ratio_counts, labels=labels, autopct='%1.1f%%', startangle=140)
+    # st.title('Distribution of Remote Work Ratio')
+    # st.show()
 
     avg_salary_by_size = dfnewCopy.groupby('company_size')['salary_in_usd'].mean()
     avg_salary_by_size.plot(kind='bar', color='skyblue')

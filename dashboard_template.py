@@ -4,6 +4,8 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 import plotly.express as px
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+
 
 #######################
 # Page configuration
@@ -67,6 +69,8 @@ dataset = pd.read_csv("data/ds_salaries.csv")
 df = dataset.copy()
 df.dropna(axis=1, how='any')
 dfnew = df.drop(columns=['Unnamed: 0'])
+encoder = LabelEncoder()
+dfnewCopy = dfnew.copy()
 
 #######################
 
@@ -111,27 +115,52 @@ elif st.session_state.page_selection == "dataset":
                 """)
     st.dataframe(dfnew, use_container_width=True, hide_index=True)
 
+    st.markdown("""
+    ### Descriptive Statistics
+    """)
+    st.dataframe(dfnew.describe(), use_container_width=True)
+
 
     # Your content for your DATASET page goes here
 
 # EDA Page
 elif st.session_state.page_selection == "eda":
     st.header("📈 Exploratory Data Analysis (EDA)")
+    st.dataframe(dfnew, use_container_width=True, hide_index=True)
+    st.dataframe(dfnew.describe(), use_container_width=True)
+
+    remote_ratio_counts = dfnewCopy['remote_ratio'].value_counts()
+    custom_labels = {
+        0: "Less than 20%",
+        50: "Partially Remote (50%)",
+        100: "Fully Remote (More than 80%)"
+    }
+    labels = [custom_labels[val] for val in remote_ratio_counts.index]
+    st.pie(remote_ratio_counts, labels=labels, autopct='%1.1f%%', startangle=140)
+    st.title('Distribution of Remote Work Ratio')
+    st.show()
+
+    avg_salary_by_size = dfnewCopy.groupby('company_size')['salary_in_usd'].mean()
+    avg_salary_by_size.plot(kind='bar', color='skyblue')
+    st.title("Average Salary by Company Size")
+    st.xlabel("Company Size")
+    st.ylabel("Average Salary in USD")
+    st.show()
 
 
-    col = st.columns((1.5, 4.5, 2), gap='medium')
+    # col = st.columns((1.5, 4.5, 2), gap='medium')
 
-    # Your content for the EDA page goes here
+    # # Your content for the EDA page goes here
 
-    with col[0]:
-        st.markdown('#### Graphs Column 1')
+    # with col[0]:
+    #     st.markdown('#### Graphs Column 1')
 
 
-    with col[1]:
-        st.markdown('#### Graphs Column 2')
+    # with col[1]:
+    #     st.markdown('#### Graphs Column 2')
         
-    with col[2]:
-        st.markdown('#### Graphs Column 3')
+    # with col[2]:
+    #     st.markdown('#### Graphs Column 3')
 
 # Data Cleaning Page
 elif st.session_state.page_selection == "data_cleaning":

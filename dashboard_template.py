@@ -4,6 +4,7 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 import plotly.express as px
+import matplotlib.pyplot as plt
 # from sklearn.preprocessing import LabelEncoder, StandardScaler
 
 
@@ -149,15 +150,7 @@ elif st.session_state.page_selection == "eda":
     st.title("Average Salary by Company Size")
     st.bar_chart(avg_salary_df.set_index('Company Size'))
 
-    st.figure(figsize=(12, 6))
-    st.plot(dfnew['salary_in_usd'], dfnew['job_title'], 'o', color='m')
-    st.title('Data Science Salaries by Job Title')
-    st.xlabel('Salary in USD')
-    st.ylabel('Job Title')
-    st.grid(True)
-    st.xticks(rotation=45)
-    st.tight_layout()
-    st.pyplot(st)
+
 
 
     # col = st.columns((1.5, 4.5, 2), gap='medium')
